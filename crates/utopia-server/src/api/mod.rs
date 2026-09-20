@@ -13,6 +13,7 @@ mod kbs;
 mod mapping_routes;
 mod mcp;
 mod members_routes;
+mod model_provider_routes;
 mod oidc_routes;
 pub(crate) mod ontology_routes;
 mod review_routes;
@@ -150,6 +151,36 @@ pub fn router(state: AppState, cfg: &AppConfig) -> Router {
         .route(
             "/workspaces/{id}/settings/test",
             post(settings_routes::test),
+        )
+        .route(
+            "/workspaces/{id}/model-providers",
+            get(model_provider_routes::list).post(model_provider_routes::create),
+        )
+        .route(
+            "/workspaces/{id}/model-providers/{provider_id}",
+            axum::routing::patch(model_provider_routes::update)
+                .delete(model_provider_routes::delete),
+        )
+        .route(
+            "/workspaces/{id}/model-providers/{provider_id}/discover",
+            post(model_provider_routes::discover),
+        )
+        .route(
+            "/workspaces/{id}/model-providers/{provider_id}/test",
+            post(model_provider_routes::test),
+        )
+        .route(
+            "/workspaces/{id}/model-providers/{provider_id}/models",
+            post(model_provider_routes::add_model),
+        )
+        .route(
+            "/workspaces/{id}/model-providers/{provider_id}/models/{model_id}",
+            axum::routing::patch(model_provider_routes::update_model)
+                .delete(model_provider_routes::delete_model),
+        )
+        .route(
+            "/workspaces/{id}/model-providers/{provider_id}/models/{model_id}/activate",
+            post(model_provider_routes::activate),
         )
         .route("/workspaces/{id}/members", get(members_routes::list))
         .route(

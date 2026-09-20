@@ -114,11 +114,10 @@ export function DocsPage() {
   const toc = tocOf(doc.body);
   const mainRef = useRef<HTMLElement>(null);
   const [activeHeading, setActiveHeading] = useState<string | null>(null);
-  // 标题：`Utopia | {文章名}`——Charter 是门脸字标，标题直接给文章
+  // 标题使用品牌名加文章名，便于多标签页识别
   usePageTitle(S.app.name, doc.title);
   // 公开页也感知登录态：已登录给用户菜单，未登录给 Sign in
   const me = useQuery({ queryKey: ["me"], queryFn: api.me, retry: false });
-  const health = useQuery({ queryKey: ["health"], queryFn: api.health });
 
   // 滚动跟随：视口上沿之上最近的标题为当前小节；
   // 滚到底强制激活最后一节（短末节永远越不过判定线）
@@ -232,7 +231,6 @@ export function DocsPage() {
         {/* 右侧与 App、账户页同一份：换页时不该动。没登录就只剩一个「登录」 */}
         <HeaderActions
           link={{ to: "/", label: S.account.backToApp }}
-          version={health.data?.version}
           user={me.data}
           signedOut={
             me.isError ? (

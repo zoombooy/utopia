@@ -81,6 +81,89 @@ pub async fn upsert(
     opened(row)
 }
 
+/// 将供应商目录里的模型设为当前对话模型，并明确替换对话密钥。
+/// 供应商可能是本地无密钥端点，所以这里不能复用保留旧密钥的普通表单 upsert。
+pub async fn activate_chat(
+    pool: &PgPool,
+    workspace_id: Uuid,
+    chat_base_url: Option<&str>,
+    chat_api_key: Option<&str>,
+    chat_model: Option<&str>,
+    embed_base_url: Option<&str>,
+    embed_api_key: Option<&str>,
+    embed_model: Option<&str>,
+    embed_dim: Option<i32>,
+) -> AppResult<LlmSettings> {
+    let row: LlmSettings = sqlx::query_as(
+        "INSERT INTO llm_settings
+             (workspace_id, chat_base_url, chat_api_key, chat_model,
+              embed_base_url, embed_api_key, embed_model, embed_dim, updated_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, now())
+         ON CONFLICT (workspace_id) DO UPDATE SET
+             chat_base_url = EXCLUDED.chat_base_url,
+             chat_api_key = EXCLUDED.chat_api_key,
+             chat_model = EXCLUDED.chat_model,
+             embed_base_url = EXCLUDED.embed_base_url,
+             embed_api_key = EXCLUDED.embed_api_key,
+             embed_model = EXCLUDED.embed_model,
+             embed_dim = EXCLUDED.embed_dim,
+             updated_at = now()
+         RETURNING *",
+    )
+    .bind(workspace_id)
+    .bind(chat_base_url)
+    .bind(secrets::seal_opt(chat_api_key))
+    .bind(chat_model)
+    .bind(embed_base_url)
+    .bind(secrets::seal_opt(embed_api_key))
+    .bind(embed_model)
+    .bind(embed_dim)
+    .fetch_one(pool)
+    .await?;
+    opened(row)
+}
+
+/// 将供应商目录里的模型设为当前向量模型，并明确替换向量密钥。
+pub async fn activate_embed(
+    pool: &PgPool,
+    workspace_id: Uuid,
+    chat_base_url: Option<&str>,
+    chat_api_key: Option<&str>,
+    chat_model: Option<&str>,
+    embed_base_url: Option<&str>,
+    embed_api_key: Option<&str>,
+    embed_model: Option<&str>,
+    embed_dim: Option<i32>,
+) -> AppResult<LlmSettings> {
+    let row: LlmSettings = sqlx::query_as(
+        "INSERT INTO llm_settings
+             (workspace_id, chat_base_url, chat_api_key, chat_model,
+              embed_base_url, embed_api_key, embed_model, embed_dim, updated_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, now())
+         ON CONFLICT (workspace_id) DO UPDATE SET
+             chat_base_url = EXCLUDED.chat_base_url,
+             chat_api_key = EXCLUDED.chat_api_key,
+             chat_model = EXCLUDED.chat_model,
+             embed_base_url = EXCLUDED.embed_base_url,
+             embed_api_key = EXCLUDED.embed_api_key,
+             embed_model = EXCLUDED.embed_model,
+             embed_dim = EXCLUDED.embed_dim,
+             updated_at = now()
+         RETURNING *",
+    )
+    .bind(workspace_id)
+    .bind(chat_base_url)
+    .bind(secrets::seal_opt(chat_api_key))
+    .bind(chat_model)
+    .bind(embed_base_url)
+    .bind(secrets::seal_opt(embed_api_key))
+    .bind(embed_model)
+    .bind(embed_dim)
+    .fetch_one(pool)
+    .await?;
+    opened(row)
+}
+
 /// 版面识别服务的设置，单独存：它在管理页上是自己的一张卡片，存它不该碰对话和嵌入那几列
 /// （反过来也一样——`upsert` 不写这三列）。`api_key` 传 None 保留旧值；地址传 None = 关掉
 pub async fn upsert_ocr(

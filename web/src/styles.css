@@ -259,7 +259,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(0.55 0.11 190);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -301,8 +301,8 @@
   --u-ground: #fafafa;
   --u-text: #171717;
   --u-text-2: #5f5f5f;
-  --u-accent: #262626;
-  --u-accent-deep: 23, 23, 23;
+  --u-accent: #218b9e;
+  --u-accent-deep: 33, 139, 158;
   --u-ink-rgb: 23, 23, 23;
   --u-ground-rgb: 250, 250, 250;
   --u-on-accent: #fafafa;
@@ -321,7 +321,7 @@
   --u-surface: rgba(0, 0, 0, 0.03);
   --u-surface-2: rgba(0, 0, 0, 0.03);
   --u-surface-3: rgba(0, 0, 0, 0.055);
-  --u-ring: rgba(0, 0, 0, 0.5);
+  --u-ring: rgba(33, 139, 158, 0.5);
   --u-well: rgba(0, 0, 0, 0.03);
   /* **框跟页面同色**，不跟着「浮起来的面用白」那条走：左栏、顶栏、导航条
      是页面的框，不是浮在页面上的东西。暗色那边这个令牌本来就是底色本身
@@ -332,7 +332,7 @@
   --u-menu-surface: rgba(255, 255, 255, 0.95);
   --u-menu-surface-hover: rgba(255, 255, 255, 1);
   --u-bubble: #ffffff;
-  --u-page-glow: transparent;
+  --u-page-glow: rgba(33, 139, 158, 0.055);
   --u-scrim: rgba(0, 0, 0, 0.35);
   --u-pop-surface: rgba(255, 255, 255, 0.98);
   --u-modal-surface: rgba(255, 255, 255, 0.97);
@@ -371,7 +371,7 @@
   /* 反色那一档**不跟着墨色走**：纸底上的墨是 #171717，一块纯黑的牌子压在
      一张浅色的图上，比暗底上那块近白的牌子重得多——同样是"反过来"，
      在纸上要收一档。深灰仍然与指到的那块浅灰分得清清楚楚 */
-  --u-pill-invert: #3f3f3f;
+  --u-pill-invert: #176d7d;
   --u-shadow: rgba(0, 0, 0, 0.18);
   /* 纸底上同一枚蓝要压深一档才立得住（浅蓝在白纸上是一团雾） */
   --u-unread: #2563eb;

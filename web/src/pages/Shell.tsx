@@ -46,12 +46,8 @@ export function Shell() {
   const kbId = useKbId();
 
   const me = useQuery({ queryKey: ["me"], queryFn: api.me });
-  const health = useQuery({
-    queryKey: ["health"],
-    queryFn: api.health,
-  });
   const { kb, kbs, setKb } = useKb();
-  // 标题跟随当前 tab：`Graph · Utopia`；文档查看页归入 Library
+  // 标题跟随当前 tab；文档查看页归入知识库
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const tabLabel =
     TABS.find((t) => pathname.startsWith(t.to))?.label ??
@@ -111,7 +107,6 @@ export function Shell() {
         {/* 右上那一组三个顶栏共用一份（HeaderActions）：换页时它不该动 */}
         <HeaderActions
           link={{ to: "/docs", label: S.nav.docs }}
-          version={health.data?.version}
           user={me.data}
         />
       </header>

@@ -270,6 +270,33 @@ export interface LlmSettingsView {
   has_transcribe_key?: boolean;
 }
 
+export type ModelProviderKind = "chat" | "embedding" | "rerank";
+
+export interface ModelProviderModel {
+  id: string;
+  provider_id: string;
+  model: string;
+  kind: ModelProviderKind;
+  context_window?: number | null;
+  enabled: boolean;
+  created_at: string;
+}
+
+export interface ModelProviderView {
+  id: string;
+  provider_id: string;
+  name: string;
+  provider_type: "openai_compatible";
+  base_url: string;
+  has_api_key: boolean;
+  enabled: boolean;
+  active_chat_model?: string | null;
+  active_embedding_model?: string | null;
+  models: ModelProviderModel[];
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Member {
   user_id: string;
   email: string;
@@ -1807,6 +1834,91 @@ export const api = {
       method: "PUT",
       body: JSON.stringify(body),
     }),
+  modelProviders: (workspaceId: string) =>
+    request<{ providers: ModelProviderView[] }>(
+      `/api/v1/workspaces/${workspaceId}/model-providers`,
+    ),
+  createModelProvider: (
+    workspaceId: string,
+    body: {
+      provider_id: string;
+      name: string;
+      provider_type?: "openai_compatible";
+      base_url: string;
+      api_key?: string;
+    },
+  ) =>
+    request<{ id: string }>(`/api/v1/workspaces/${workspaceId}/model-providers`, {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
+  updateModelProvider: (
+    workspaceId: string,
+    providerId: string,
+    body: { name?: string; base_url?: string; api_key?: string; enabled?: boolean },
+  ) =>
+    request<{ ok: boolean }>(
+      `/api/v1/workspaces/${workspaceId}/model-providers/${providerId}`,
+      { method: "PATCH", body: JSON.stringify(body) },
+    ),
+  deleteModelProvider: (workspaceId: string, providerId: string) =>
+    request<{ ok: boolean }>(
+      `/api/v1/workspaces/${workspaceId}/model-providers/${providerId}`,
+      { method: "DELETE" },
+    ),
+  discoverModelProvider: (workspaceId: string, providerId: string) =>
+    request<{
+      ok: boolean;
+      models?: { id: string }[];
+      error?: string;
+      body?: unknown;
+    }>(
+      `/api/v1/workspaces/${workspaceId}/model-providers/${providerId}/discover`,
+      { method: "POST" },
+    ),
+  testModelProvider: (
+    workspaceId: string,
+    providerId: string,
+    body: { model: string; kind: ModelProviderKind },
+  ) =>
+    request<{ ok: boolean; detail?: unknown; error?: string }>(
+      `/api/v1/workspaces/${workspaceId}/model-providers/${providerId}/test`,
+      { method: "POST", body: JSON.stringify(body) },
+    ),
+  addProviderModel: (
+    workspaceId: string,
+    providerId: string,
+    body: { model: string; kind: ModelProviderKind; context_window?: number },
+  ) =>
+    request<{ id: string }>(
+      `/api/v1/workspaces/${workspaceId}/model-providers/${providerId}/models`,
+      { method: "POST", body: JSON.stringify(body) },
+    ),
+  updateProviderModel: (
+    workspaceId: string,
+    providerId: string,
+    modelId: string,
+    body: { enabled?: boolean },
+  ) =>
+    request<{ ok: boolean }>(
+      `/api/v1/workspaces/${workspaceId}/model-providers/${providerId}/models/${modelId}`,
+      { method: "PATCH", body: JSON.stringify(body) },
+    ),
+  deleteProviderModel: (workspaceId: string, providerId: string, modelId: string) =>
+    request<{ ok: boolean }>(
+      `/api/v1/workspaces/${workspaceId}/model-providers/${providerId}/models/${modelId}`,
+      { method: "DELETE" },
+    ),
+  activateProviderModel: (
+    workspaceId: string,
+    providerId: string,
+    modelId: string,
+    kind: "chat" | "embedding",
+  ) =>
+    request<{ ok: boolean }>(
+      `/api/v1/workspaces/${workspaceId}/model-providers/${providerId}/models/${modelId}/activate`,
+      { method: "POST", body: JSON.stringify({ kind }) },
+    ),
   graphOverview: (kbId: string, limit?: number) =>
     request<{
       nodes: GraphNode[];

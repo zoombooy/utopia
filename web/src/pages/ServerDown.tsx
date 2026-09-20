@@ -27,14 +27,6 @@ function PunishmentPage({
         <p className="u-balance mt-4 text-body text-ink-2">{message}</p>
         <div className="mt-6 flex items-center justify-center gap-4">
           {children}
-          <a
-            href={`${S.login.githubUrl}/issues`}
-            target="_blank"
-            rel="noreferrer"
-            className="u-link text-small"
-          >
-            {S.nav.reportIssue}
-          </a>
         </div>
       </div>
     </div>

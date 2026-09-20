@@ -72,7 +72,7 @@ Ordinary `/api/v1` UI response shapes are **not** a compatibility promise: they
 have no OpenAPI contract or deprecation policy. The export route above is the
 explicit exception, not a promise covering every route with that prefix.
 
-The export does not yet include conflict/review state ([#564](https://github.com/deeplethe/utopia/issues/564))
+The export does not yet include conflict/review state (该功能仍在完善中)
 or the chunk identity behind a quote. Per-entity export and a SPARQL endpoint are
 also not implemented. Neither MCP nor the export promises historical proof
 snapshots: `as_of` selects the derivations held then, but proofs use the current

@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearch } from "@tanstack/react-router";
 import { Plus, X } from "lucide-react";
 import { api, type DataSourceView } from "../api";
-import { LANG_NAMES, S } from "../i18n";
+import { S } from "../i18n";
 import { useKb } from "../kb";
 import { toast } from "../toast";
 import {
@@ -29,6 +29,7 @@ import {
   PageHeader,
   chipLike,} from "../ui";
 import { Members } from "./Members";
+import { ModelProviders } from "./ModelProviders";
 import { SsoAdmin } from "./Sso";
 
 /** 两张模型卡的备注只讲一件事，且只讲最新的那件（#698）。
@@ -253,7 +254,7 @@ function DeploymentAdmin() {
           onChange={(l) => save.mutate({ open, ontologyLang: l })}
           options={(["en", "zh"] as const).map((l) => ({
             value: l,
-            label: LANG_NAMES[l],
+            label: l === "en" ? "English" : "中文",
           }))}
         />
       </SettingsCard>
@@ -1111,6 +1112,8 @@ export function Settings() {
              一起送上去。服务端对缺席与空串都当"这项不改"，所以每张卡只送自己
              那三项就够了 */
           <div className="space-y-4">
+            <ModelProviders workspaceId={workspace.id} />
+            <div className="border-t border-line pt-4">
             <p className="text-body text-ink-2">{S.settings.modelsIntro}</p>
 
             {/* 预设一按填满两张卡的字段：它不是设置本身，所以在卡外面 */}
@@ -1421,6 +1424,7 @@ export function Settings() {
                 </div>
               </div>
             </SettingsCard>
+            </div>
           </div>
         )}
       </div>

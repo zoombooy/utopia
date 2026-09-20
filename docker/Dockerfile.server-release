@@ -1,0 +1,43 @@
+# Server release path: use the locally verified frontend artifact and the
+# already validated runtime image on the deployment host. This keeps release
+# builds independent of the host's package mirrors.
+FROM rust:1-slim-bookworm AS build
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
+ARG http_proxy
+ARG https_proxy
+ENV HTTP_PROXY=$HTTP_PROXY HTTPS_PROXY=$HTTPS_PROXY http_proxy=$http_proxy https_proxy=$https_proxy
+ENV CARGO_HTTP_CHECK_REVOKE=false
+RUN printf '%s\n' \
+    'openssl_conf = default_conf' \
+    '[default_conf]' \
+    'ssl_conf = ssl_sect' \
+    '[ssl_sect]' \
+    'system_default = system_default_sect' \
+    '[system_default_sect]' \
+    'CipherString = DEFAULT:@SECLEVEL=1' \
+    > /tmp/openssl.cnf
+ENV OPENSSL_CONF=/tmp/openssl.cnf
+WORKDIR /src
+COPY docker/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+ENV CARGO_HTTP_CAINFO=/etc/ssl/certs/ca-certificates.crt
+ENV CARGO_HTTP_PROXY= CARGO_REGISTRIES_CRATES_IO_INDEX=sparse+http://127.0.0.1:19182/index/ NO_PROXY=127.0.0.1,localhost CARGO_HTTP_TIMEOUT=600 CARGO_HTTP_LOW_SPEED_LIMIT=1
+COPY Cargo.toml Cargo.lock ./
+COPY crates/ crates/
+COPY migrations/ migrations/
+COPY web/src/docs/ web/src/docs/
+RUN mkdir -p /usr/local/cargo && printf '%s\n' \
+    '[source.crates-io]' \
+    'replace-with = "local-crates-io"' \
+    '[source.local-crates-io]' \
+    'registry = "sparse+http://127.0.0.1:19182/index/"' \
+    > /usr/local/cargo/config.toml
+RUN cargo build --release -p utopia-server
+
+FROM utopia:jinlin-75951c7 AS runtime
+WORKDIR /app
+COPY --from=build /src/target/release/utopia-server /usr/local/bin/utopia-server
+COPY web/dist/ /app/web-dist/
+ENV UTOPIA_WEB_DIST=/app/web-dist
+EXPOSE 1516
+CMD ["utopia-server"]

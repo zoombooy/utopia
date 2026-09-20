@@ -15,7 +15,7 @@ import {
   Users,
 } from "lucide-react";
 import { api, type AuditEvent } from "../api";
-import { LANG_NAMES, S } from "../i18n";
+import { S } from "../i18n";
 import { toast } from "../toast";
 import {
   Button,
@@ -426,7 +426,7 @@ export function KbSettings() {
                   onChange={setOntoLang}
                   options={(["en", "zh"] as const).map((l) => ({
                     value: l,
-                    label: LANG_NAMES[l],
+                    label: l === "en" ? "English" : "中文",
                   }))}
                 />
               </SettingsCard>

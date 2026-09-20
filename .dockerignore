@@ -6,8 +6,6 @@ target/
 .git/
 .github/
 data/
-web/dist/
-docs/
 .claude/
 .env
 *.log

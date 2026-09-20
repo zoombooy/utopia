@@ -1,4 +1,4 @@
-/* Utopia UI 组件库 — 页面只用这里的组件与 styles.css 语义类，不写颜色字面量。
+/* 锦鳞 UI 组件库 — 页面只用这里的组件与 styles.css 语义类，不写颜色字面量。
    规矩在 web/DESIGN.md，守卫在 scripts/style-guard.mjs：字号五档、间距六档、
    圆角四档、颜色只认令牌、状态（hover/focus/disabled/动效）只在这里定。
    Dialog / DangerConfirm / Tooltip / Table / Field 各在自己的文件里，从这里再导出。 */
@@ -72,15 +72,10 @@ import {
     以最宽的 Ontology（w-64）为基准——rail 装的是名字，宽一档少截断。 */
 export const RAIL_CLS = "w-64 shrink-0 glass-strong border-y-0 border-l-0";
 
-/** 品牌字标：Marcellus 衬线，逐字母从左到右淡入；hover 浮出 ↗，点击去官网。
-    箭头/偏移全部用 em，跟随使用处的字号缩放（登录大标题与顶栏共用）。 */
+/** 品牌字标：逐字母从左到右淡入。品牌只作为本地界面标识，不承担外部跳转。 */
 export function Wordmark({ className }: { className?: string }) {
   return (
-    <a
-      href={S.app.siteUrl}
-      target="_blank"
-      rel="noreferrer"
-      title="utopia.bi"
+    <span
       className={cn("relative inline-flex text-ink", className)}
       style={{ fontFamily: "var(--font-brand)", letterSpacing: "0.01em" }}
     >
@@ -93,8 +88,7 @@ export function Wordmark({ className }: { className?: string }) {
           {ch}
         </span>
       ))}
-      <ArrowUpRight className="u-mark-arrow" aria-hidden />
-    </a>
+    </span>
   );
 }
 
@@ -1233,21 +1227,6 @@ export function Spinner({
 
 export function ErrorText({ children }: { children: ReactNode }) {
   return <p className="text-body text-danger">{children}</p>;
-}
-
-/* ---------- GithubMark（lucide 无品牌图标，官方 mark 内联） ---------- */
-export function GithubMark({ size = 16 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden
-    >
-      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-    </svg>
-  );
 }
 
 /* ---------- PageHeader（栏右内容区的页级标题） ----------

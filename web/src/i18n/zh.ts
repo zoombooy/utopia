@@ -5,18 +5,17 @@
 // 抽取 / 摄入 / 来源 / 文本块 / 图谱 / 审阅 / 冲突 / 合并 / 置信度 / 时态 /
 // 函数性 / 提示词 / 三元组。
 //
-// **不译的东西**：品牌字标（Utopia / Persona / Charter）、标识符（key、IRI）、
+// **不译的东西**：标识符（key、IRI）、
 // 产品名（DeepSeek、Ollama…）、URL。字标不译是因为它们是标记不是词。
 import type { Strings } from "./en";
 
 export const zh: Strings = {
   app: {
-    name: "Utopia",
-    /* 标语与出处都与 Utopia / Persona / Charter 同类：品牌的一部分，两种语言同值 */
-    tagline: "We rather wish than hope to see.",
-    taglineSource: "— Thomas More, 1516",
-    siteUrl: "https://utopia.bi",
-    docsUrl: "https://utopia.bi/docs",
+    name: "锦鳞",
+    tagline: "让知识有迹可循，让答案有据可依",
+    taglineSource: "知识库与智能检索平台",
+    siteUrl: "",
+    docsUrl: "",
   },
   err: {
     bad_email: "这看起来不像一个邮箱地址。",
@@ -84,8 +83,8 @@ export const zh: Strings = {
     added: "已加入本体",
   },
   account: {
-    brand: "Utopia Persona",
-    titleTag: "Persona",
+    brand: "锦鳞",
+    titleTag: "账户",
     profile: "个人资料",
     cancel: "取消",
     colLastUsed: "上次使用",
@@ -137,7 +136,7 @@ export const zh: Strings = {
     kbSettingsBtn: "设置",
     tokensNav: "Agent 与令牌",
     tokensTitle: "个人访问令牌",
-    tokensHint: "令牌让 agent 以你的身份通过 MCP 访问 Utopia，权限不超过你自己。默认只读，限定在你选的库，可随时在这里撤销。",
+    tokensHint: "令牌让 agent 以你的身份通过 MCP 访问锦鳞，权限不超过你自己。默认只读，限定在你选的库，可随时在这里撤销。",
     newToken: "新令牌",
     tokenName: "名字",
     tokenNamePlaceholder: "我的笔记本",
@@ -152,7 +151,7 @@ export const zh: Strings = {
     expiresNever: "不过期",
     issueToken: "创建令牌",
     issuedTitle: "现在就复制，之后不会再显示。",
-    issuedHint: "Utopia 只保存它的哈希。丢了就在这里撤销，再建一枚。",
+    issuedHint: "锦鳞只保存它的哈希。丢了就在这里撤销，再建一枚。",
     copy: "复制",
     copied: "已复制",
     mcpTitle: "MCP 客户端配置",
@@ -180,8 +179,8 @@ export const zh: Strings = {
     },
   },
   docs: {
-    brand: "Utopia Charter",
-    backTitle: "返回 Utopia",
+    brand: "锦鳞文档",
+    backTitle: "返回锦鳞",
     searchPlaceholder: "搜索文档…",
     noResults: "没有匹配。",
   },
@@ -261,8 +260,8 @@ export const zh: Strings = {
     signOut: "退出登录",
     docs: "文档",
     loading: "加载中…",
-    serverUnreachable: "罚则 500：Utopia 沉默了——它没有回应。",
-    notFound: "罚则 404：你在 Utopia 里迷了路。",
+    serverUnreachable: "服务暂时没有响应，请检查服务状态后重试。",
+    notFound: "页面不存在，请返回锦鳞首页。",
     returnHome: "回到首页",
     reportIssue: "反馈问题",
     refresh: "刷新",
@@ -307,7 +306,6 @@ export const zh: Strings = {
     agreePrefix: "继续即表示你同意",
     agreeAnd: "，并已知悉",
     agreeSuffix: "。",
-    githubUrl: "https://github.com/deeplethe/utopia",
   },
   legal: {
     privacyTitle: "隐私政策",
@@ -315,12 +313,12 @@ export const zh: Strings = {
     backToSignIn: "← 返回登录",
     privacy: {
       title: "隐私政策",
-      note: "Utopia 自带的默认文本。运营本部署的组织可以替换成自己的政策。",
+      note: "锦鳞自带的默认文本。运营本部署的组织可以替换成自己的政策。",
       sections: [
         {
           h: "一个自部署的平台",
           body: [
-            "Utopia 完全运行在部署方（运营者）自行选择的基础设施上。Utopia 项目本身接触不到这个部署：软件不向任何人发送遥测、分析或崩溃报告。",
+            "锦鳞完全运行在部署方（运营者）自行选择的基础设施上。软件本身接触不到这个部署：不向任何人发送遥测、分析或崩溃报告。",
           ],
         },
         {
@@ -360,12 +358,12 @@ export const zh: Strings = {
     },
     terms: {
       title: "使用条款",
-      note: "Utopia 自带的默认文本。运营本部署的组织可以替换成自己的条款。",
+      note: "锦鳞自带的默认文本。运营本部署的组织可以替换成自己的条款。",
       sections: [
         {
           h: "关于这份条款",
           body: [
-            "这个 Utopia 实例由部署它的组织运营，而非 Utopia 项目。你对它的使用受该组织自身政策约束；在运营者替换之前，这份默认条款覆盖基本事项。",
+            "这个锦鳞实例由部署它的组织运营。你对它的使用受该组织自身政策约束；在运营者替换之前，这份默认条款覆盖基本事项。",
           ],
         },
         {
@@ -392,7 +390,7 @@ export const zh: Strings = {
         {
           h: "关于本软件",
           body: [
-            "Utopia 是开源软件，按「原样」提供，不附带任何形式的担保。运营本部署的责任——包括备份、可用性与合规——由运营者承担。",
+            "锦鳞软件按「原样」提供，不附带任何形式的担保。运营本部署的责任——包括备份、可用性与合规——由运营者承担。",
           ],
         },
       ],
@@ -543,7 +541,7 @@ export const zh: Strings = {
         "日期取页面最后一次编辑的时刻，那是页面自己的时钟，不是我们抓它的时刻。",
       api: "外部系统把 JSON 文档推送到这里，用这个来源自己的令牌认证。",
       custom:
-        "按计划轮询一个你控制的 URL——你的服务返回 JSON 条目，Utopia 保持同步。",
+        "按计划轮询一个你控制的 URL——你的服务返回 JSON 条目，锦鳞保持同步。",
       memory:
         "从「对话」中记下的片段。只追加：被推翻的记忆是闭合有效区间，而不是删除——" +
         "时间线保留完整的来龙去脉。",
@@ -676,7 +674,7 @@ export const zh: Strings = {
     chunkOf: (filename: string, seq: number) => `${filename} · 第 ${seq} 段`,
   },
   ask: {
-    greeting: "问问 Utopia 都记住了什么",
+    greeting: "问问锦鳞都记住了什么",
     emptyTitle: "对话",
     emptyBody:
       "与你的知识库对话——带引用的回答、关于时间的提问，而且它会记住。\n请先在「文库」上传文档，并在「管理 → 模型」里配置模型。",
@@ -910,7 +908,7 @@ export const zh: Strings = {
   },
   settings: {
     title: "管理",
-    tabModels: "模型",
+    tabModels: "模型供应商",
     tabMembers: "用户",
     tabKbs: "知识库",
     tabDeployment: "部署",
@@ -1036,6 +1034,59 @@ export const zh: Strings = {
     },
     modelsIntro:
       "OpenAI 兼容协议——DeepSeek、Qwen、GLM、Ollama、vLLM 都可用。完全内网友好。",
+    providers: {
+      title: "模型供应商",
+      hint: "按供应商管理接口地址和模型目录，再选择当前工作区实际使用的对话模型与向量模型。",
+      add: "新增供应商",
+      edit: "编辑供应商",
+      addTitle: "新增模型供应商",
+      editTitle: "编辑模型供应商",
+      providerId: "供应商 ID",
+      displayName: "展示名称",
+      providerType: "协议类型",
+      openaiCompatible: "OpenAI 兼容 API",
+      baseUrl: "接口地址",
+      apiKey: "API 密钥",
+      keyConfigured: "已配置",
+      enabled: "已启用",
+      disabled: "未启用",
+      manageModels: "管理模型",
+      noProviders: "还没有模型供应商。先添加一个接口配置。",
+      save: "保存",
+      cancel: "取消",
+      delete: "删除供应商",
+      deleteHint: "删除供应商不会删除旧的运行时配置，但该供应商下的模型目录会一并删除。",
+      discover: "获取远程模型",
+      discovering: "获取中…",
+      discoverFailed: "获取远程模型失败",
+      discovered: "可添加的远程模型",
+      addManual: "手动添加",
+      model: "模型名称",
+      kind: "模型类型",
+      chat: "对话",
+      embedding: "向量",
+      rerank: "重排",
+      context: "上下文长度",
+      addModel: "添加模型",
+      emptyModels: "还没有模型。可以拉取远程模型或手动添加。",
+      modelEnabled: "已启用",
+      modelDisabled: "已停用",
+      active: "当前使用",
+      activeChat: "当前对话模型",
+      activeEmbedding: "当前向量模型",
+      setChat: "设为对话模型",
+      setEmbedding: "设为向量模型",
+      testing: "测试中…",
+      test: "测试连接",
+      testOk: (text: string) => `连接成功${text ? `：${text}` : ""}`,
+      testFail: (text: string) => `连接失败：${text}`,
+      providerCreated: "供应商已创建",
+      providerSaved: "供应商已保存",
+      modelAdded: "模型已添加",
+      modelSaved: "模型已保存",
+      modelDeleted: "模型已删除",
+      providerDeleted: "供应商已删除",
+    },
     chatModel: "对话模型",
     embedModel: "向量模型（可选，启用语义检索）",
     baseUrl: "接口地址",
@@ -1308,7 +1359,7 @@ export const zh: Strings = {
       iri ? `被 ${iri} 占用` : "被这个知识库里已有的条目占用",
     importUnprojected: "暂未投影",
     importUnprojectedBody:
-      "这个文件用到、而 Utopia 目前还不消费的公理。什么都没丢：原文按上传时的样子存着，将来的版本可以投影它们。",
+      "这个文件用到、而锦鳞目前还不消费的公理。什么都没丢：原文按上传时的样子存着，将来的版本可以投影它们。",
     importDone: (created: number, updated: number) =>
       `导入完成——新建 ${created} 个类，更新 ${updated} 个。`,
     importHistory: "历次导入",
@@ -1389,7 +1440,7 @@ export const zh: Strings = {
       `什么都不会被删除，之后仍可再次采纳。`,
     undoConfirm: "撤销",
     undoCancel: "保持",
-    autoRanTitle: "Utopia 依据你的文档扩展了这个本体",
+    autoRanTitle: "锦鳞依据你的文档扩展了这个本体",
     autoRanBody: (rels: string[], facts: number) =>
       `新增 ${rels.join("、")} · ${facts} 条事实已重新归类`,
     autoRanOff: "可在知识库设置里关掉它。",
@@ -1808,7 +1859,7 @@ export const zh: Strings = {
     autoExtend: "自动扩展本体",
     autoExtendNote:
       "当抽取遇到这个本体里没有的关系时，把它加进来，并把一直等着它的那些事实重新归类。" +
-      "每一次变更都会列出，并且可以撤销。关掉它并不会让 Utopia 不再留意——" +
+      "每一次变更都会列出，并且可以撤销。关掉它并不会让锦鳞不再留意——" +
       "那些说法仍然会汇集到「未匹配」下，只是要等你点头。",
     materialize: "物化推理",
     materializeNote:

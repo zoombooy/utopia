@@ -3,19 +3,19 @@
 //
 // locale 只在这一个文件里解析。其余 600 多处只消费 `S`，谁都不去读来源。
 // 将来要不要跟随浏览器、要不要每用户覆盖，改的是这里，不是那 600 处。
-import { en, type Strings } from "./en";
+import type { Strings } from "./en";
 import { zh } from "./zh";
 
 export type { Strings };
 
-export const LANGS = ["en", "zh"] as const;
+export const LANGS = ["zh"] as const;
 export type Lang = (typeof LANGS)[number];
 
 /** 语言自己的名字，永远不翻译——在切换器里，"中文"对看不懂英文的人才是路标 */
-export const LANG_NAMES: Record<Lang, string> = { en: "English", zh: "中文" };
+export const LANG_NAMES: Record<Lang, string> = { zh: "中文" };
 
-const BUNDLES: Record<Lang, Strings> = { en, zh };
-const KEY = "utopia.lang";
+const BUNDLES: Record<Lang, Strings> = { zh };
+const KEY = "jinlin.lang";
 
 function detect(): Lang {
   try {
@@ -26,10 +26,9 @@ function detect(): Lang {
     // 隐私模式下 localStorage 会抛——回落到英文，别让首屏挂掉
   }
   // **不跟随浏览器语言**。中文包还在跟着英文包后面追，猜错语言的代价是
-  // 一个中文用户看到半成品，而不是看到完整的英文。等 zh 追平了再把
-  // navigator.language 那一句加回来——那是一行代码的事。
+  // 当前发行版固定使用中文，避免用户看到未翻译的英文界面。
   // 人自己选过的仍然作数（上面那段），切换器照常在用户菜单里
-  return "en";
+  return "zh";
 }
 
 export const lang: Lang = detect();

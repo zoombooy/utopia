@@ -24,6 +24,7 @@ pub mod materialize;
 pub mod members;
 pub mod memory;
 pub mod model_limits;
+pub mod model_providers;
 pub mod names;
 pub mod ontology;
 pub mod palette;

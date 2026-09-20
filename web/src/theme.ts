@@ -1,5 +1,5 @@
-/* 主题：暗 / 浅 / 跟系统。**默认暗**——那是这个界面的本色；浅色是给白天对着
- * 它看八小时的人的。存在浏览器里（`utopia.theme`），不经过后端：看的人自己定，
+/* 主题：暗 / 浅 / 跟系统。**默认浅**——让知识库长时间使用更轻松；暗色仍可在账户菜单中选择。
+ * 存在浏览器里（`jinlin.theme`），不经过后端：看的人自己定，
  * 与语言同一个道理（0004）。
  *
  * 落在 `<html data-theme="dark|light">` 上，且**只落这两个值**：「system」在这里
@@ -10,15 +10,15 @@
 export type Theme = "system" | "light" | "dark";
 export type Resolved = "light" | "dark";
 
-const KEY = "utopia.theme";
+const KEY = "jinlin.theme";
 const listeners = new Set<(t: Resolved) => void>();
 
 function stored(): Theme {
   try {
     const v = localStorage.getItem(KEY);
-    return v === "light" || v === "dark" || v === "system" ? v : "dark";
+    return v === "light" || v === "dark" || v === "system" ? v : "light";
   } catch {
-    return "dark";
+    return "light";
   }
 }
 
